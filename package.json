@@ -1,0 +1,12 @@
+{
+  "name": "siji",
+  "version": "0.0.0",
+  "description": "Trello + Wordpress + Everything else",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "chimera install.chiml up",
+    "uninstall": "chimera install.chiml down"
+  },
+  "author": "goFrendi",
+  "license": "MIT"
+}
