@@ -1,0 +1,69 @@
+ins: action, migrationConfig
+out: output
+vars:
+  schemas:
+
+    - name: 'sjboards'
+      collectionName: 'sj_boards'
+      caption: 'Boards'
+      fields:
+        name:
+          notNull: 1
+        members:
+          inputTemplate: '<%- cck.input.one2many %>'
+          presentationTemplate: '<%- cck.presentation.one2many %>'
+          fields:
+            name:
+              inputTemplate: '<%- cck.input.many2one %>'
+              presentationTemplate: '<%- cck.presentation.many2one %>'
+              ref: 'users'
+              keyField: '_id'
+              fields: ['username']
+            privilege:
+              inputTemplate: '<%- cck.input.options %>'
+              presentationTemplate: '<%- cck.presentation.options %>'
+              options:
+                admin: 'Administrator' # can do everything
+                collabolators: 'Collaborators' # can add and manage own cards
+                watchers: 'Watchers' # can only see everything
+
+    - name: 'sjlabeltypes'
+      collectionName: 'sj_label_types'
+      caption: 'Label Types'
+      fields:
+        name:
+          notNull: 1
+        board:
+          inputTemplate: '<%- cck.input.many2one %>'
+          presentationTemplate: '<%- cck.presentation.many2one %>'
+          ref: 'sjboards'
+          keyField: '_id'
+          fields: ['name']
+        representation:
+          inputTemplate: '<%- cck.input.jsonText %>'
+          presentationTemplate: '<%- cck.presentation.jsonText %>'
+          
+    - name: 'sjcards'
+      collectionName: 'sj_cards'
+      fields:
+        name:
+          notNull: 1
+        description:
+          inputTemplate: '<%- cck.input.textArea %>'
+          presentationTemplate: '<%- cck.presentation.text %>'
+        parent:
+          inputTemplate: '<%- cck.input.many2one %>'
+          presentationTemplate: '<%- cck.presentation.many2one %>'
+          ref: 'sjcards'
+          keyField: '_id'
+          fields: ['name']
+
+do:
+  - if: action == 'up'
+    do:
+      # upgrade
+      - '(schemas) -> [$.cck.createSchema]'
+
+    else:
+      # downgrade
+      - '(schemas) -> [$.cck.removeSchema]'

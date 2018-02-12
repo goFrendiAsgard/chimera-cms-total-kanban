@@ -1,8 +1,8 @@
-# Siji
+# Cosmos
 
 `Trello + Wordpress + Everything Else`
 
-Siji is project-management + publishing platform for your Chimera-CMS
+Cosmos is project-management + publishing platform for your Chimera-CMS
 
 # Getting Started
 
@@ -23,14 +23,14 @@ Here are the steps required to pack a package:
   ```bash
   npm pack
   ```
-* A new `siji.tgz` file will be created.
+* A new `cosmos.tgz` file will be created.
 
 ## Installing
 
 To install your plugin, please make sure you are already in `Chimera CMS` directory
 
 ```bash
-npm install siji.tgz
+npm install cosmos.tgz
 ```
 
 ## Uninstalling
@@ -40,5 +40,5 @@ To uninstall your plugin, please make sure you are already in `Chimera CMS` dire
 Then, you can invoke the following command:
 
 ```bash
-npm uninstall siji
+npm uninstall cosmos
 ```
