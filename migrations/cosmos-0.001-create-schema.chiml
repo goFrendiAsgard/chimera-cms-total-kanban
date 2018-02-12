@@ -20,12 +20,12 @@ vars:
               keyField: '_id'
               fields: ['username']
             privilege:
-              inputTemplate: '<%- cck.input.options %>'
-              presentationTemplate: '<%- cck.presentation.options %>'
+              inputTemplate: '<%- cck.input.option %>'
+              presentationTemplate: '<%- cck.presentation.option %>'
               options:
                 admin: 'Administrator' # can do everything
-                collabolators: 'Collaborators' # can add and manage own cards
-                watchers: 'Watchers' # can only see everything
+                collabolator: 'Collaborator' # can add and manage own cards
+                watcher: 'Watcher' # can only see everything
 
     - name: 'sjlabeltypes'
       collectionName: 'sj_label_types'
@@ -51,12 +51,70 @@ vars:
         description:
           inputTemplate: '<%- cck.input.textArea %>'
           presentationTemplate: '<%- cck.presentation.text %>'
-        parent:
-          inputTemplate: '<%- cck.input.many2one %>'
-          presentationTemplate: '<%- cck.presentation.many2one %>'
-          ref: 'sjcards'
-          keyField: '_id'
-          fields: ['name']
+        members:
+          inputTemplate: '<%- cck.input.one2many %>'
+          presentationTemplate: '<%- cck.presentation.one2many %>'
+          fields:
+            name:
+              inputTemplate: '<%- cck.input.many2one %>'
+              presentationTemplate: '<%- cck.presentation.many2one %>'
+              ref: 'users'
+              keyField: '_id'
+              fields: ['username']
+            privilege:
+              inputTemplate: '<%- cck.input.option %>'
+              presentationTemplate: '<%- cck.presentation.option %>'
+              options:
+                assignee: 'Assignee' # can do everything
+                manager: 'Manager' # can add and manage own cards
+                watcher: 'Watcher' # can only see everything
+        attachments:
+          inputTemplate: '<%- cck.input.one2many %>'
+          presentationTemplate: '<%- cck.presentation.one2many %>'
+          fields:
+            inputTemplate: '<%- cck.input.image %>'
+            presentationTemplate: '<%- cck.presentation.image %>'
+        progressMeter:
+          inputTemplate: '<%- cck.input.one2many %>'
+          presentationTemplate: '<%- cck.presentation.one2many %>'
+          fields:
+            name: {}
+            weight: {}
+            completed:
+              inputTemplate: '<%- cck.input.option %>'
+              presentationTemplate: '<%- cck.input.option %>'
+              options:
+                inProgress: 'In Progress'
+                completed: 'Completed'
+            completion: {}
+            card: 
+              inputTemplate: '<%- cck.input.many2one %>'
+              presentationTemplate: '<%- cck.input.many2one %>'
+              ref: 'cards'
+              keyField: '_id'
+              fields: ['name']
+      initChain: '<%- chainPath %>cosmos/card.init.js'
+      afterInsertChain: '<%- chainPath %>cosmos/card.afterInsertOrUpdate.js'
+      afterUpdateChain: '<%- chainPath %>cosmos/card.afterInsertOrUpdate.js'
+    
+    - name: 'sjviews'
+      collectionName: 'sj_views'
+      fields:
+        name:
+          notNull: 1
+          isUnique: 1
+        chain:
+          inputTemplate: '<%- cck.input.codeText %>'
+          tabularPresentationTemplate: '<%- cck.presentation.text %>'
+          presentationTemplate: '<%- cck.presentation.jsonText %>'
+          hidden: ['tabular']
+          editor: 'yaml'
+        view:
+          inputTemplate: '<%- cck.input.codeText %>'
+          tabularPresentationTemplate: '<%- cck.presentation.text %>'
+          presentationTemplate: '<%- cck.presentation.jsonText %>'
+          hidden: ['tabular']
+          editor: 'ejs'
 
 do:
   - if: action == 'up'
