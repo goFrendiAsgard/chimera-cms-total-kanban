@@ -3,8 +3,8 @@ out: output
 vars:
   schemas:
 
-    - name: 'sjboards'
-      collectionName: 'sj_boards'
+    - name: 'tkboards'
+      collectionName: 'tk_boards'
       caption: 'Boards'
       fields:
         name:
@@ -26,9 +26,13 @@ vars:
                 admin: 'Administrator' # can do everything
                 collabolator: 'Collaborator' # can add and manage own cards
                 watcher: 'Watcher' # can only see everything
+      selectGroups: ['loggedIn']
+      insertGroups: ['loggedIn']
+      updateGroups: ['loggedIn']
+      deleteGroups: ['loggedIn']
 
-    - name: 'sjlabeltypes'
-      collectionName: 'sj_label_types'
+    - name: 'tklabeltypes'
+      collectionName: 'tk_label_types'
       caption: 'Label Types'
       fields:
         name:
@@ -36,15 +40,19 @@ vars:
         board:
           inputTemplate: '<%- cck.input.many2one %>'
           presentationTemplate: '<%- cck.presentation.many2one %>'
-          ref: 'sjboards'
+          ref: 'tkboards'
           keyField: '_id'
           fields: ['name']
         representation:
           inputTemplate: '<%- cck.input.jsonText %>'
           presentationTemplate: '<%- cck.presentation.jsonText %>'
+      selectGroups: ['loggedIn']
+      insertGroups: ['loggedIn']
+      updateGroups: ['loggedIn']
+      deleteGroups: ['loggedIn']
           
-    - name: 'sjcards'
-      collectionName: 'sj_cards'
+    - name: 'tkcards'
+      collectionName: 'tk_cards'
       fields:
         name:
           notNull: 1
@@ -93,12 +101,16 @@ vars:
               ref: 'cards'
               keyField: '_id'
               fields: ['name']
-      initChain: '<%- chainPath %>cosmos/card.init.js'
-      afterInsertChain: '<%- chainPath %>cosmos/card.afterInsertOrUpdate.js'
-      afterUpdateChain: '<%- chainPath %>cosmos/card.afterInsertOrUpdate.js'
+      initChain: '<%- chainPath %>total-kanban/card.init.js'
+      afterInsertChain: '<%- chainPath %>total-kanban/card.afterInsertOrUpdate.js'
+      afterUpdateChain: '<%- chainPath %>total-kanban/card.afterInsertOrUpdate.js'
+      selectGroups: ['loggedIn']
+      insertGroups: ['loggedIn']
+      updateGroups: ['loggedIn']
+      deleteGroups: ['loggedIn']
     
-    - name: 'sjviews'
-      collectionName: 'sj_views'
+    - name: 'tkviews'
+      collectionName: 'tk_views'
       fields:
         name:
           notNull: 1
@@ -115,8 +127,13 @@ vars:
           presentationTemplate: '<%- cck.presentation.jsonText %>'
           hidden: ['tabular']
           editor: 'ejs'
+      selectGroups: ['loggedIn']
+      insertGroups: ['loggedIn']
+      updateGroups: ['loggedIn']
+      deleteGroups: ['loggedIn']
 
 do:
+
   - if: action == 'up'
     do:
       # upgrade

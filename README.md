@@ -1,8 +1,8 @@
-# Cosmos
+# Total-kanban
 
 `Trello + Wordpress + Everything Else`
 
-Cosmos is project-management + publishing platform for your Chimera-CMS
+Total-kanban is project-management + publishing platform for your Chimera-CMS
 
 # Getting Started
 
@@ -23,14 +23,14 @@ Here are the steps required to pack a package:
   ```bash
   npm pack
   ```
-* A new `cosmos.tgz` file will be created.
+* A new `total-kanban.tgz` file will be created.
 
 ## Installing
 
 To install your plugin, please make sure you are already in `Chimera CMS` directory
 
 ```bash
-npm install cosmos.tgz
+npm install total-kanban.tgz
 ```
 
 ## Uninstalling
@@ -40,5 +40,5 @@ To uninstall your plugin, please make sure you are already in `Chimera CMS` dire
 Then, you can invoke the following command:
 
 ```bash
-npm uninstall cosmos
+npm uninstall total-kanban
 ```

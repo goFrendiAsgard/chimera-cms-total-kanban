@@ -1,0 +1,44 @@
+ins: action, migrationConfig
+out: output
+do:
+
+  - if: action === 'up'
+    do:
+      
+      # Add Navigation
+      - ins:
+          - 'web_configs'
+          - 'update'
+          - key: 'navigation'
+          - $push:
+              value:
+                caption: 'Kanban'
+                groups: ['loggedIn']
+                children:
+                  - caption: 'Boards'
+                    url: '/data/tkboards'
+                    groups: ['loggedIn']
+                  - caption: 'Cards'
+                    url: '/data/tkcards'
+                    groups: ['loggedIn']
+                  - caption: 'Labels'
+                    url: '/data/tklabeltypes'
+                    groups: ['loggedIn']
+                  - caption: 'Views'
+                    url: '/data/tkviews'
+                    groups: ['superAdmin']
+        out: output
+        do: '[$.helper.mongoExecute]'
+           
+    else:
+
+      # Remove Navigation
+      - ins:
+          - 'web_configs'
+          - 'update'
+          - key: 'navigation'
+          - $pull:
+              value:
+                caption: 'Cosmos'
+        out: output
+        do: '[$.helper.mongoExecute]'
