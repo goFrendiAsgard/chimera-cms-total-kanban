@@ -53,9 +53,17 @@ vars:
           
     - name: 'tkcards'
       collectionName: 'tk_cards'
+      caption: 'Cards'
       fields:
         name:
           notNull: 1
+        board:
+          notNull: 1
+          inputTemplate: '<%- cck.input.many2one %>'
+          presentationTemplate: '<%- cck.presentation.many2one %>'
+          ref: 'tkboards'
+          keyField: '_id'
+          fields: ['name']
         description:
           inputTemplate: '<%- cck.input.textArea %>'
           presentationTemplate: '<%- cck.presentation.text %>'
@@ -80,8 +88,9 @@ vars:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'
           fields:
-            inputTemplate: '<%- cck.input.image %>'
-            presentationTemplate: '<%- cck.presentation.image %>'
+            image:
+              inputTemplate: '<%- cck.input.image %>'
+              presentationTemplate: '<%- cck.presentation.image %>'
         progressMeter:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'
@@ -111,6 +120,7 @@ vars:
     
     - name: 'tkviews'
       collectionName: 'tk_views'
+      caption: 'Views'
       fields:
         name:
           notNull: 1

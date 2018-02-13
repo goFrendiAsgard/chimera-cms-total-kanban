@@ -39,6 +39,6 @@ do:
           - key: 'navigation'
           - $pull:
               value:
-                caption: 'Cosmos'
+                caption: 'Kanban'
         out: output
         do: '[$.helper.mongoExecute]'

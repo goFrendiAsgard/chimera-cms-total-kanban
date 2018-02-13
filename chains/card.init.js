@@ -1,4 +1,4 @@
 module.exports = (ins, vars, callback) => {
   const cckState = ins[0]
-  callback(cckState)
+  callback(null, cckState)
 }
