@@ -1,0 +1,33 @@
+ins: action, migrationConfig
+out: output
+vars:
+  data:
+
+    - name: Sample Card
+      default: 1
+
+do:  
+
+
+  - if: action == 'up'
+    do:
+
+      # get boardId
+      - "('tk_boards', 'find', {'caption': 'Sample Board'}) -> [$.helper.mongoExecute] -> boards"
+      - "(boards[0]._id) --> boardId"
+
+      # assign default board to the cards
+      - ins: data, boardId
+        out: data
+        do: |
+          (data, boardId) => {
+            for (let i = 0; i < data.length; i++) {
+              data[i].board = boardId
+            }
+            return data
+          }
+
+      - "('tk_cards', 'insert', data) -> [$.helper.mongoExecute] -> output"
+
+    else:
+      - "('tk_cards', 'remove', {'default': 1}) -> [$.helper.mongoExecute] -> output"

@@ -43,7 +43,7 @@ vars:
           ref: 'tkboards'
           keyField: '_id'
           fields: ['name']
-        representation:
+        labels:
           inputTemplate: '<%- cck.input.jsonText %>'
           presentationTemplate: '<%- cck.presentation.jsonText %>'
       selectGroups: ['loggedIn']

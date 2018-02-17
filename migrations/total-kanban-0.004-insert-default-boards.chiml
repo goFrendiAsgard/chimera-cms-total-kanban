@@ -1,0 +1,16 @@
+ins: action, migrationConfig
+out: output
+vars:
+  data:
+
+    - name: Sample Board
+      default: 1
+
+do:  
+
+  - if: action == 'up'
+    do:
+      - "('tk_boards', 'insert', data) -> [$.helper.mongoExecute] -> output"
+
+    else:
+      - "('tk_boards', 'remove', {'default': 1}) -> [$.helper.mongoExecute] -> output"
