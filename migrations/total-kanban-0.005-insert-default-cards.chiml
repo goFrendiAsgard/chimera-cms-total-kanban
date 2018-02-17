@@ -4,6 +4,10 @@ vars:
   data:
 
     - name: Sample Card
+      Publication: Draft
+      State: To Do
+      Urgency: Not Urgent
+      Importance: Important
       default: 1
 
 do:  
