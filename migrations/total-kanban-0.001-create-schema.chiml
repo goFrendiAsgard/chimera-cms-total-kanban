@@ -67,6 +67,12 @@ vars:
         description:
           inputTemplate: '<%- cck.input.textArea %>'
           presentationTemplate: '<%- cck.presentation.text %>'
+        scheduleFrom:
+          inputTemplate: '<%- cck.input.dateTime %>'
+          presentationTemplate: '<%- cck.presentation.text %>'
+        scheduleTo:
+          inputTemplate: '<%- cck.input.dateTime %>'
+          presentationTemplate: '<%- cck.presentation.text %>'
         members:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'
