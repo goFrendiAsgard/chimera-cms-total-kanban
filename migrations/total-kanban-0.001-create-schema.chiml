@@ -37,6 +37,8 @@ vars:
       fields:
         name:
           notNull: 1
+        caption:
+          notNull: 1
         board:
           inputTemplate: '<%- cck.input.many2one %>'
           presentationTemplate: '<%- cck.presentation.many2one %>'
@@ -57,8 +59,6 @@ vars:
       fields:
         name:
           notNull: 1
-          bootstrapColWidth: 11
-          presentationTemplate: '<%- viewPath %>total-kanban/cck/presentations/card.ejs'
         board:
           notNull: 1
           inputTemplate: '<%- cck.input.many2one %>'
@@ -66,7 +66,10 @@ vars:
           ref: 'tkboards'
           keyField: '_id'
           fields: ['name']
-          hidden: ['tabular']
+        parsedDescription:
+          caption: 'Description'
+          presentationTemplate: '<%%- value %>'
+          hidden: ['insert', 'update', 'detail']
         description:
           inputTemplate: '<%- cck.input.codeText %>'
           presentationTemplate: '<%- cck.presentation.text %>'
@@ -75,11 +78,9 @@ vars:
         scheduleFrom:
           inputTemplate: '<%- cck.input.dateTime %>'
           presentationTemplate: '<%- cck.presentation.text %>'
-          hidden: ['tabular']
         scheduleTo:
           inputTemplate: '<%- cck.input.dateTime %>'
           presentationTemplate: '<%- cck.presentation.text %>'
-          hidden: ['tabular']
         members:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'

@@ -7,15 +7,18 @@ vars:
       description: |
         # Sample Card
         This is a card example.
+
         # List
         Here are some list:
+
         * List 1
         * List 2
         * List 3
-      Publication: Draft
-      State: To Do
-      Urgency: Not Urgent
-      Importance: Important
+      publication: Draft
+      state: To Do
+      urgency: Not Urgent
+      importance: Important
+      department: IT
       default: 1
 
 do:  

@@ -3,26 +3,36 @@ out: output
 vars:
   data:
 
-    - name: Publication
+    - name: publication
+      caption: Publication
       labels: ['Draft', 'Internal', 'Published']
       default: 1
 
-    - name: State
+    - name: state
+      caption: Progress State
       labels: ['To Do', 'Doing', 'Done', 'Idea']
       default: 1
     
-    - name: Urgency
+    - name: urgency
+      caption: 'Urgency'
       labels: ['Urgent', 'Not Urgent']
       default: 1
     
-    - name: Importance
+    - name: importance
+      caption: 'Importance'
       labels: ['Important', 'Not Important']
       default: 1
   
   additionalData:
 
-    - name: Room
+    - name: room
+      caption: Room
       labels: ['Meeting Room', 'Cafetaria', 'Auditorium']
+      default: 1
+
+    - name: department
+      caption: Department
+      labels: ['Accounting', 'IT', 'Public Relation']
       default: 1
 
 do:  
