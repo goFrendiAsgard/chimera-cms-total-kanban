@@ -41,7 +41,7 @@ do:
     do:
       # get boardId
       - "('tk_boards', 'find', {'name': 'Sample Board'}) -> [$.helper.mongoExecute] -> boards"
-      - "(boards[0]._id) --> boardId"
+      - "(String(boards[0]._id)) --> boardId"
 
       # add boardId to additionalData
       - ins: additionalData, boardId
