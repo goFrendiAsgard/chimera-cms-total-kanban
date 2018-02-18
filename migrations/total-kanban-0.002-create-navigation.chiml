@@ -24,9 +24,6 @@ do:
                   - caption: 'Labels'
                     url: '/data/tklabeltypes'
                     groups: ['loggedIn']
-                  - caption: 'Views'
-                    url: '/data/tkviews'
-                    groups: ['superAdmin']
         out: output
         do: '[$.helper.mongoExecute]'
            

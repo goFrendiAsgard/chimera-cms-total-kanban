@@ -4,6 +4,14 @@ vars:
   data:
 
     - name: Sample Card
+      description: |
+        # Sample Card
+        This is a card example.
+        # List
+        Here are some list:
+        * List 1
+        * List 2
+        * List 3
       Publication: Draft
       State: To Do
       Urgency: Not Urgent
@@ -11,7 +19,6 @@ vars:
       default: 1
 
 do:  
-
 
   - if: action == 'up'
     do:

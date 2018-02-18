@@ -57,6 +57,8 @@ vars:
       fields:
         name:
           notNull: 1
+          bootstrapColWidth: 11
+          presentationTemplate: '<%- viewPath %>total-kanban/cck/presentations/card.ejs'
         board:
           notNull: 1
           inputTemplate: '<%- cck.input.many2one %>'
@@ -64,15 +66,20 @@ vars:
           ref: 'tkboards'
           keyField: '_id'
           fields: ['name']
+          hidden: ['tabular']
         description:
-          inputTemplate: '<%- cck.input.textArea %>'
+          inputTemplate: '<%- cck.input.codeText %>'
           presentationTemplate: '<%- cck.presentation.text %>'
+          editor: markdown
+          hidden: ['tabular']
         scheduleFrom:
           inputTemplate: '<%- cck.input.dateTime %>'
           presentationTemplate: '<%- cck.presentation.text %>'
+          hidden: ['tabular']
         scheduleTo:
           inputTemplate: '<%- cck.input.dateTime %>'
           presentationTemplate: '<%- cck.presentation.text %>'
+          hidden: ['tabular']
         members:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'
@@ -90,6 +97,7 @@ vars:
                 assignee: 'Assignee' # can do everything
                 manager: 'Manager' # can add and manage own cards
                 watcher: 'Watcher' # can only see everything
+          hidden: ['tabular']
         attachments:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'
@@ -97,6 +105,7 @@ vars:
             image:
               inputTemplate: '<%- cck.input.image %>'
               presentationTemplate: '<%- cck.presentation.image %>'
+          hidden: ['tabular']
         progressMeter:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'
@@ -116,38 +125,16 @@ vars:
               ref: 'cards'
               keyField: '_id'
               fields: ['name']
+          hidden: ['tabular']
       initChain: '<%- chainPath %>total-kanban/card.init.js'
       afterInsertChain: '<%- chainPath %>total-kanban/card.afterInsertOrUpdate.js'
       afterUpdateChain: '<%- chainPath %>total-kanban/card.afterInsertOrUpdate.js'
+      afterSelectChain: '<%- chainPath %>total-kanban/card.afterSelect.js'
       selectGroups: ['loggedIn']
       insertGroups: ['loggedIn']
       updateGroups: ['loggedIn']
       deleteGroups: ['loggedIn']
-    
-    - name: 'tkviews'
-      collectionName: 'tk_views'
-      caption: 'Views'
-      fields:
-        name:
-          notNull: 1
-          isUnique: 1
-        chain:
-          inputTemplate: '<%- cck.input.codeText %>'
-          tabularPresentationTemplate: '<%- cck.presentation.text %>'
-          presentationTemplate: '<%- cck.presentation.jsonText %>'
-          hidden: ['tabular']
-          editor: 'yaml'
-        view:
-          inputTemplate: '<%- cck.input.codeText %>'
-          tabularPresentationTemplate: '<%- cck.presentation.text %>'
-          presentationTemplate: '<%- cck.presentation.jsonText %>'
-          hidden: ['tabular']
-          editor: 'ejs'
-      selectGroups: ['loggedIn']
-      insertGroups: ['loggedIn']
-      updateGroups: ['loggedIn']
-      deleteGroups: ['loggedIn']
-
+   
 do:
 
   - if: action == 'up'
