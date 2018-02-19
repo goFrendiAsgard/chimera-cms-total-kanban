@@ -69,16 +69,16 @@ vars:
         parsedDescription:
           caption: 'Description'
           presentationTemplate: '<%%- value %>'
-          hidden: ['insert', 'update', 'detail']
+          hidden: ['insert', 'update']
         tags:
           caption: 'Tags'
-          presentationTemplate: '<%%- value %>'
+          presentationTemplate: '<%- viewPath %>total-kanban/cck/presentations/tags.ejs'
           hidden: ['insert', 'update', 'detail']
         description:
           inputTemplate: '<%- cck.input.codeText %>'
           presentationTemplate: '<%- cck.presentation.text %>'
           editor: markdown
-          hidden: ['tabular']
+          hidden: ['tabular', 'detail']
         scheduleFrom:
           inputTemplate: '<%- cck.input.dateTime %>'
           presentationTemplate: '<%- cck.presentation.text %>'
@@ -135,6 +135,7 @@ vars:
       afterInsertChain: '<%- chainPath %>total-kanban/card.afterInsertOrUpdate.js'
       afterUpdateChain: '<%- chainPath %>total-kanban/card.afterInsertOrUpdate.js'
       afterSelectChain: '<%- chainPath %>total-kanban/card.afterSelect.js'
+      showView: '<%- viewPath %>total-kanban/cck/card.kanban.show.ejs'
       selectGroups: ['loggedIn']
       insertGroups: ['loggedIn']
       updateGroups: ['loggedIn']
