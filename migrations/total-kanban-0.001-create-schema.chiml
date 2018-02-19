@@ -70,6 +70,10 @@ vars:
           caption: 'Description'
           presentationTemplate: '<%%- value %>'
           hidden: ['insert', 'update', 'detail']
+        tags:
+          caption: 'Tags'
+          presentationTemplate: '<%%- value %>'
+          hidden: ['insert', 'update', 'detail']
         description:
           inputTemplate: '<%- cck.input.codeText %>'
           presentationTemplate: '<%- cck.presentation.text %>'
