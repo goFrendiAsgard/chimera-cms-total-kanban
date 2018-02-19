@@ -127,7 +127,7 @@ vars:
             card: 
               inputTemplate: '<%- cck.input.many2one %>'
               presentationTemplate: '<%- cck.input.many2one %>'
-              ref: 'cards'
+              ref: 'tkcards'
               keyField: '_id'
               fields: ['name']
           hidden: ['tabular']
