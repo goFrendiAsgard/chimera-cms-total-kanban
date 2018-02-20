@@ -3,16 +3,16 @@ out: output
 vars:
   data:
 
-    - name: publication
-      caption: Publication
-      labels: ['Draft', 'Internal', 'Published']
-      default: 1
-
     - name: state
       caption: Progress State
       labels: ['To Do', 'Doing', 'Done', 'Idea']
       default: 1
-    
+
+    - name: publication
+      caption: Publication
+      labels: ['Draft', 'Internal', 'Published']
+      default: 1   
+
     - name: urgency
       caption: 'Urgency'
       labels: ['Urgent', 'Not Urgent']

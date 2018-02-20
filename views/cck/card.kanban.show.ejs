@@ -1,18 +1,37 @@
 <style type="text/css">
   .panel-deleted{
-    opacity: 0.8;
+    opacity: 0.5;
+  }
+  .parsed-description-container {
+    max-height: 100px;
+    overflow: auto;
+    font-size: smaller;
   }
   .parsed-description-container h1{
-    font-size: 2em;
-  }
-  .parsed-description-container h2{
+    margin-top: 10px;
     font-size: 1.5em;
   }
+  .parsed-description-container h2{
+    margin-top: 10px;
+    font-size: 1.2em;
+  }
   .parsed-description-container h3{
+    margin-top: 10px;
     font-size: 1.17em;
   }
   .parsed-description-container h4, .parsed-description-container h5, .parsed-description-container h6{
+    margin-top: 10px;
     font-size: 1.1em;
+  }
+  .parsed-description-container img{
+    max-width: 100%;
+  }
+  .small{
+    font-size: smaller;
+  }
+  .card-list {
+    max-height: 600px;
+    overflow: auto;
   }
 </style>
 <script src="/ace-builds/src-min-noconflict/ace.js"></script>
@@ -63,24 +82,32 @@
 
     <% for (let label of cckState.labelType.labels) { %>
       <!-- Categorized cards -->
-      <div class="well col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <h3><%= label %></h3>
-        <% for (let row of results) { %>
-          <% let labelFieldName = cckState.labelType['name'] %>
-          <% if (!row[labelFieldName] || row[labelFieldName] != label) { continue } %>
-          <%- render(cckState.cardTemplate, {cckState, row, renderFieldTemplate, isAuthorized}) %>
-        <% } %>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading"><%= label %></div>
+          <div class="panel-body card-list">
+            <% for (let row of results) { %>
+              <% let labelFieldName = cckState.labelType['name'] %>
+              <% if (!row[labelFieldName] || row[labelFieldName] != label) { continue } %>
+              <%- render(cckState.cardTemplate, {cckState, row, renderFieldTemplate, isAuthorized}) %>
+            <% } %>
+          </div>
+        </div>
       </div>
     <% } %>
 
     <!-- Uncategorized cards -->
-    <div class="well col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <h3>Uncategorized</h3>
-      <% for (let row of results) { %>
-        <% if (!(cckState.labelType.name in row)) { %>
-          <%- render(cckState.cardTemplate, {cckState, row, renderFieldTemplate, isAuthorized}) %>
-        <% } %>
-      <% } %>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Uncategorized</div>
+        <div class="panel-body card-list">
+          <% for (let row of results) { %>
+            <% if (!(cckState.labelType.name in row)) { %>
+              <%- render(cckState.cardTemplate, {cckState, row, renderFieldTemplate, isAuthorized}) %>
+            <% } %>
+          <% } %>
+        </div>
+      </div>
     </div>
 
 <% } else { %>
