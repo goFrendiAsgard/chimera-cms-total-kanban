@@ -14,10 +14,7 @@
 
     <div class="small">
       <!-- Schedule -->
-      <%- renderFieldTemplate(cckState.schema, 'scheduleFrom', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
-        -
-      <%- renderFieldTemplate(cckState.schema, 'scheduleTo', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
-      <br />
+      <div class="schedule" from="<%- renderFieldTemplate(cckState.schema, 'scheduleFrom', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>" to="<%- renderFieldTemplate(cckState.schema, 'scheduleTo', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>"></div>
       <!-- Tags -->
       <%- renderFieldTemplate(cckState.schema, 'tags', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
     </div>

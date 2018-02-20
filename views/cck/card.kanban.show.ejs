@@ -150,6 +150,8 @@
 
 <script>
   $(document).ready(function (event) {
+
+    // adjust kanban selection
     $.ajax({
       url: '/api/v1/tklabeltypes/',
       dataType: 'json',
@@ -162,5 +164,32 @@
         $('#select-kanban').html(html)
       }
     })
+
+    function getDateObject (str) {
+      if (str.trim() === '<i>[Not set]</i>') {
+        return null
+      }
+      try {
+        return new Date(str.trim())
+      } catch (error) {
+        return null
+      }
+    }
+
+    function dateFormat (dateObject) {
+      if (dateObject) {
+        return dateObject.toLocaleDateString() + ' ' + dateObject.toLocaleTimeString()
+      }
+      return ''
+    }
+
+    // update schedule
+    $('.schedule').each(function () {
+      let from = getDateObject($(this).attr('from'))
+      let to = getDateObject($(this).attr('to'))
+      let html = dateFormat(from) + ' ' + dateFormat(to)
+      $(this).html(html)
+    })
+
   })
 </script>

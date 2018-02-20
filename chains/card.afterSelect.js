@@ -9,6 +9,8 @@ function injectKanban (cckState, state, $, kanban, callback) {
   let config = state.config
   cckState.labelType = defaultLabelType
   cckState.cardTemplate = tkHelper.getTemplate(config.viewPath + 'total-kanban/cck/card.template.ejs')
+  cckState.session = 'session' in cckState ? cckState.session : {}
+  cckState.session._kanban = kanban
   let dbConfig = {
     collectionName: 'tk_label_types', 
     dbOption: { excludeDeleted: 0, showHistory: 0 }
@@ -29,7 +31,7 @@ module.exports = (ins, vars, callback) => {
   let cckState = ins[0]
   let state = ins[1]
   let $ = vars.$
-  let kanban = state.request.query['_kanban'] || state.request.body['_kanban']
+  let kanban = state.request.query['_kanban'] || state.request.body['_kanban'] || state.request.session['_kanban']
   cckState = tkHelper.embedCardVirtualFields(cckState)
   // not single result
   if (!cckState.result.result) {
