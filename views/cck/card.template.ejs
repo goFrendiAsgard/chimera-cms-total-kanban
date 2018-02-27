@@ -1,25 +1,23 @@
 <div class="panel panel-default <%= row._deleted ? "panel-deleted" : "" %>">
 
-  <div class="panel-heading">
-    <!-- Caption -->
-    <b><%- renderFieldTemplate(cckState.schema, 'name', ['tabularPresentationTemplate', 'presentationTemplate'], row) %></b>
-    <span class="label label-default">
-      <%- renderFieldTemplate(cckState.schema, 'board', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
-    </span>
-  </div>
-
   <div class="panel-body">
 
-    <div class="small">
-      <!-- Schedule -->
-      <div class="schedule" from="<%- renderFieldTemplate(cckState.schema, 'scheduleFrom', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>" to="<%- renderFieldTemplate(cckState.schema, 'scheduleTo', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>"></div>
-      <!-- Tags -->
-      <%- renderFieldTemplate(cckState.schema, 'tags', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
-    </div>
+    <!-- Caption -->
+    <b><%- renderFieldTemplate(cckState.schema, 'name', ['tabularPresentationTemplate', 'presentationTemplate'], row) %></b>
 
     <!-- Parsed Description -->
     <div class="parsed-description-container">
       <%- renderFieldTemplate(cckState.schema, 'parsedDescription', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
+    </div>
+
+    <div class="small">
+      <!-- Schedule -->
+      <div class="schedule" from="<%- renderFieldTemplate(cckState.schema, 'scheduleFrom', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>" to="<%- renderFieldTemplate(cckState.schema, 'scheduleTo', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>"></div>
+
+      <!-- Board -->
+      <%- renderFieldTemplate(cckState.schema, 'board', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
+      <!-- Tags -->
+      <%- renderFieldTemplate(cckState.schema, 'tags', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
     </div>
 
   </div>

@@ -62,7 +62,7 @@ vars:
         board:
           notNull: 1
           inputTemplate: '<%- cck.input.many2one %>'
-          presentationTemplate: '<%- cck.presentation.many2one %>'
+          presentationTemplate: '<%- viewPath %>total-kanban/cck/presentations/board.ejs'
           ref: 'tkboards'
           keyField: '_id'
           fields: ['name']
