@@ -49,11 +49,21 @@
   <form action="/data/<%= cckState.schemaName %>" class="form-horizontal">
 
     <div class="form-group">
-      <div class="col-sm-4">
+      <div class="col-sm-2">
+        <select id="select-board" name="_board" class="form-control">
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <input id="min-date" name="_minDate" class="form-control" type="date" />
+      </div>
+      <div class="col-sm-2">
+        <input id="max-date" name="_maxDate" class="form-control" type="date" />
+      </div>
+      <div class="col-sm-2">
         <select id="select-kanban" name="_kanban" class="form-control">
         </select>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <input type="hidden" name="_excludeDeleted" value="<%= cckState.excludeDeleted %>" />
         <input type="hidden" name="limit" value="<%= cckState.limit %>" />
         <input type="hidden" name="_q" value="<%= cckState.q %>" />
