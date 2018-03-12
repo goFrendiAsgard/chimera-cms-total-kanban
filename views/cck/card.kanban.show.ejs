@@ -48,39 +48,42 @@
 
   <form action="/data/<%= cckState.schemaName %>" class="form-horizontal">
 
-    <div class="form-group">
-      <div class="col-sm-2">
+    <div class="form-row">
+      <div class="col">
         <select id="select-board" name="_board" class="form-control">
         </select>
       </div>
-      <div class="col-sm-2">
+      <div class="col">
         <input id="min-date" name="_minDate" class="form-control" type="date" />
       </div>
-      <div class="col-sm-2">
+      <div class="col">
         <input id="max-date" name="_maxDate" class="form-control" type="date" />
       </div>
-      <div class="col-sm-2">
+      <div class="col">
         <select id="select-kanban" name="_kanban" class="form-control">
         </select>
       </div>
-      <div class="col-sm-2">
+      <div class="col">
         <input type="hidden" name="_excludeDeleted" value="<%= cckState.excludeDeleted %>" />
         <input type="hidden" name="limit" value="<%= cckState.limit %>" />
         <input type="hidden" name="_q" value="<%= cckState.q %>" />
         <input type="text" class="form-control" name="_k" placeholder="Keyword" value="<%= cckState.k %>" />
       </div>
-      <button class="btn btn-default" name="search" value="1"><span class="glyphicon glyphicon-search"></button>
 
-      <a id="button-show-all" class="btn btn-default" href="/data/<%= cckState.schemaName %>?_excludeDeleted=<%= cckState.excludeDeleted == 1 ? 0 : 1 %>&limit=<%= cckState.limit %>&_q=<%= cckState.q %>&_k=<%= cckState.k %>">
-        <span class="glyphicon <%= cckState.excludeDeleted == 1 ? 'glyphicon-eye-close' : 'glyphicon-eye-open' %>"></span>
-      </a>
-
-      <!-- Insert Button -->
-      <% if (isAuthorized(cckState.auth, cckState.schema.insertGroups)) { %>
-        <a id="button-insert" class="btn btn-default" href="/data/<%= cckState.schemaName %>/insert?_excludeDeleted=<%= cckState.excludeDeleted%>&limit=<%= cckState.limit %>&_q=<%= cckState.q %>&_k=<%= cckState.k %>">
-          <span class="glyphicon glyphicon-plus"></span>
+      <div class="col">
+        <!-- search -->
+        <button class="btn btn-sm btn-secondary" name="search" value="1"><span class="oi oi-magnifying-glass"></button>
+        <!-- show hidden -->
+        <a id="button-show-all" class="btn btn-sm btn-secondary" href="/data/<%= cckState.schemaName %>?_excludeDeleted=<%= cckState.excludeDeleted == 1 ? 0 : 1 %>&limit=<%= cckState.limit %>&_q=<%= cckState.q %>&_k=<%= cckState.k %>">
+          <span class="oi <%= cckState.excludeDeleted == 1 ? 'oi-ellipses' : 'oi-eye-open' %>"></span>
         </a>
-      <% } %>
+        <!-- Insert Button -->
+        <% if (isAuthorized(cckState.auth, cckState.schema.insertGroups)) { %>
+          <a id="button-insert" class="btn btn-sm btn-secondary" href="/data/<%= cckState.schemaName %>/insert?_excludeDeleted=<%= cckState.excludeDeleted%>&limit=<%= cckState.limit %>&_q=<%= cckState.q %>&_k=<%= cckState.k %>">
+            <span class="oi oi-plus"></span>
+          </a>
+        <% } %>
+      </div>
 
     </div>
   </form>
@@ -88,14 +91,14 @@
 </div>
 
 <% if (results.length > 0) { %>
-  <div id="kanban-container">
+  <div id="kanban-container" class="row container">
 
     <% for (let label of cckState.labelType.labels) { %>
       <!-- Categorized cards -->
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="panel panel-default">
-          <div class="panel-heading"><b><%= label %></b></div>
-          <div class="panel-body card-list">
+        <div class="card">
+          <div class="card-header"><b><%= label %></b></div>
+          <div class="card-body card-list">
             <% for (let row of results) { %>
               <% let labelFieldName = cckState.labelType['name'] %>
               <% if (!row[labelFieldName] || row[labelFieldName] != label) { continue } %>
@@ -108,9 +111,9 @@
 
     <!-- Uncategorized cards -->
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <div class="panel panel-default">
-        <div class="panel-heading"><b>Uncategorized</b></div>
-        <div class="panel-body card-list">
+      <div class="card">
+        <div class="card-header"><b>Uncategorized</b></div>
+        <div class="card-body card-list">
           <% for (let row of results) { %>
             <% if (!(cckState.labelType.name in row)) { %>
               <%- render(cckState.cardTemplate, {cckState, row, renderFieldTemplate, isAuthorized}) %>
