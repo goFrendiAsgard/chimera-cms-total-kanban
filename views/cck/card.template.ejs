@@ -1,10 +1,16 @@
 <div class="panel panel-default <%= row._deleted ? "panel-deleted" : "" %>">
 
-  <div class="panel-body">
-
+  <div class="panel-header">
     <!-- Caption -->
-    <b><%- renderFieldTemplate(cckState.schema, 'name', ['tabularPresentationTemplate', 'presentationTemplate'], row) %></b>
+    <b>
+      <%- renderFieldTemplate(cckState.schema, 'name', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
+      <span class="glyphicon glyphicon-chevron-down" rowId="<%= row.id %>"></span>
+      <span class="glyphicon glyphicon-chevron-up" rowId="<%= row.id %>"></span>
+    </b>
+  </div>
 
+  <div class="panel-body">
+    
     <!-- Parsed Description -->
     <div class="parsed-description-container">
       <%- renderFieldTemplate(cckState.schema, 'parsedDescription', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
