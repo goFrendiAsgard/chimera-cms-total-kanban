@@ -1,11 +1,15 @@
 <style type="text/css">
-  .panel-deleted{
+  .card-deleted{
     opacity: 0.5;
   }
+  .collapse-card{
+    display:none;
+  }
   .parsed-description-container {
-    max-height: 200px;
+    /*max-height: 200px;*/
     overflow: auto;
     font-size: smaller;
+    display:none;
   }
   .parsed-description-container h1{
     margin-top: 10px;
@@ -163,6 +167,22 @@
 
 <script>
   $(document).ready(function (event) {
+    // expand card
+    $('.expand-card').click(function(event){
+      event.preventDefault()
+      let rowId = $(this).attr('rowId')
+      $(this).hide()
+      $('.collapse-card[rowId="' + rowId + '"]').show()
+      $('.parsed-description-container[rowId="' + rowId + '"]').show()
+    })
+    // collapse card
+    $('.collapse-card').click(function(event){
+      event.preventDefault()
+      let rowId = $(this).attr('rowId')
+      $(this).hide()
+      $('.expand-card[rowId="' + rowId + '"]').show()
+      $('.parsed-description-container[rowId="' + rowId + '"]').hide()
+    })
 
     // adjust kanban selection
     $.ajax({

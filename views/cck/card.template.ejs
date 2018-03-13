@@ -1,18 +1,18 @@
-<div class="card <%= row._deleted ? "panel-deleted" : "" %>">
+<div class="card <%= row._deleted ? "card-deleted" : "" %>">
 
   <div class="card-header">
     <!-- Caption -->
     <b>
       <%- renderFieldTemplate(cckState.schema, 'name', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
-      <span class="oi oi-chevron-down" rowId="<%= row.id %>"></span>
-      <span class="oi oi-chevron-up" rowId="<%= row.id %>"></span>
+      <a class="expand-card" href="#" rowId="<%= row.id %>"><span class="oi oi-chevron-bottom"></span></a>
+      <a class="collapse-card" href="#" rowId="<%= row.id %>"><span class="oi oi-chevron-top"></span></a>
     </b>
   </div>
 
   <div class="card-body">
     
     <!-- Parsed Description -->
-    <div class="parsed-description-container">
+    <div class="parsed-description-container" rowId="<%= row.id %>">
       <%- renderFieldTemplate(cckState.schema, 'parsedDescription', ['tabularPresentationTemplate', 'presentationTemplate'], row) %>
     </div>
 
