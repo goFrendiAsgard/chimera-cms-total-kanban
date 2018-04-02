@@ -1,0 +1,1 @@
+cd ../chimera-cms && npm uninstall total-kanban

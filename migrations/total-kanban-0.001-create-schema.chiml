@@ -37,17 +37,21 @@ vars:
       fields:
         name:
           notNull: 1
+          bootstrapColWidth: 2
         caption:
           notNull: 1
+          bootstrapColWidth: 2
         board:
           inputTemplate: '<%- cck.input.many2one %>'
           presentationTemplate: '<%- cck.presentation.many2one %>'
           ref: 'tkboards'
           keyField: '_id'
           fields: ['name']
+          bootstrapColWidth: 2
         labels:
           inputTemplate: '<%- cck.input.jsonText %>'
           presentationTemplate: '<%- cck.presentation.jsonText %>'
+          bootstrapColWidth: 4
       selectGroups: ['loggedIn']
       insertGroups: ['loggedIn']
       updateGroups: ['loggedIn']
@@ -62,29 +66,36 @@ vars:
         board:
           notNull: 1
           inputTemplate: '<%- cck.input.many2one %>'
-          presentationTemplate: '<%- viewPath %>total-kanban/cck/presentations/board.ejs'
+          presentationTemplate: '<%- cck.presentation.many2one %>'
           ref: 'tkboards'
           keyField: '_id'
           fields: ['name']
-        parsedDescription:
-          caption: 'Description'
-          presentationTemplate: '<%%- value %>'
-          hidden: ['insert', 'update']
+          hidden: ['tabular']
         tags:
-          caption: 'Tags'
-          presentationTemplate: '<%- viewPath %>total-kanban/cck/presentations/tags.ejs'
-          hidden: ['insert', 'update', 'detail']
-        description:
+          inputTemplate: '<%- cck.input.one2many %>'
+          presentationTemplate: '<%- cck.presentation.one2many %>'
+          fields:
+            type:
+              inputTemplate: '<%- cck.input.many2one %>'
+              presentationTemplate: '<%- cck.presentation.many2one %>'
+              ref: 'tklabeltypes'
+              keyField: '_id'
+              fields: ['caption']
+            label: {}
+          hidden: ['tabular']
+        note:
           inputTemplate: '<%- cck.input.codeText %>'
           presentationTemplate: '<%- cck.presentation.text %>'
           editor: markdown
-          hidden: ['tabular', 'detail']
+          hidden: ['tabular']
         scheduleFrom:
           inputTemplate: '<%- cck.input.dateTime %>'
           presentationTemplate: '<%- cck.presentation.text %>'
+          hidden: ['tabular']
         scheduleTo:
           inputTemplate: '<%- cck.input.dateTime %>'
           presentationTemplate: '<%- cck.presentation.text %>'
+          hidden: ['tabular']
         members:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'
@@ -103,7 +114,7 @@ vars:
                 manager: 'Manager' # can add and manage own cards
                 watcher: 'Watcher' # can only see everything
           hidden: ['tabular']
-        attachments:
+        images:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'
           fields:
@@ -111,18 +122,20 @@ vars:
               inputTemplate: '<%- cck.input.image %>'
               presentationTemplate: '<%- cck.presentation.image %>'
           hidden: ['tabular']
-        progressMeter:
+        documents:
+          inputTemplate: '<%- cck.input.one2many %>'
+          presentationTemplate: '<%- cck.presentation.one2many %>'
+          fields:
+            file:
+              inputTemplate: '<%- cck.input.file %>'
+              presentationTemplate: '<%- cck.presentation.file %>'
+          hidden: ['tabular']
+        checklist:
           inputTemplate: '<%- cck.input.one2many %>'
           presentationTemplate: '<%- cck.presentation.one2many %>'
           fields:
             name: {}
             weight: {}
-            completed:
-              inputTemplate: '<%- cck.input.option %>'
-              presentationTemplate: '<%- cck.input.option %>'
-              options:
-                inProgress: 'In Progress'
-                completed: 'Completed'
             completion: {}
             card: 
               inputTemplate: '<%- cck.input.many2one %>'
@@ -131,11 +144,36 @@ vars:
               keyField: '_id'
               fields: ['name']
           hidden: ['tabular']
-      initChain: '<%- chainPath %>total-kanban/card.init.js'
-      afterInsertChain: '<%- chainPath %>total-kanban/card.afterInsertOrUpdate.js'
-      afterUpdateChain: '<%- chainPath %>total-kanban/card.afterInsertOrUpdate.js'
-      afterSelectChain: '<%- chainPath %>total-kanban/card.afterSelect.js'
-      showView: '<%- viewPath %>total-kanban/cck/card.kanban.show.ejs'
+        chat:
+          inputTemplate: '<%- cck.input.one2many %>'
+          presentationTemplate: '<%- cck.presentation.one2many %>'
+          fields:
+            message:
+              inputTemplate: '<%- cck.input.codeText %>'
+              presentationTemplate: '<%- cck.presentation.text %>'
+            writeBy:
+              inputTemplate: '<%- cck.input.many2one %>'
+              presentationTemplate: '<%- cck.presentation.many2one %>'
+              ref: 'users'
+              keyField: '_id'
+              fields: ['username']
+            writeTime:
+              inputTemplate: '<%- cck.input.dateTime %>'
+              presentationTemplate: '<%- cck.presentation.text %>'
+            read:
+              inputTemplate: '<%- cck.input.one2Many %>'
+              presentationTemplate: '<%- cck.presentation.one2many %>'
+              fields:
+                readBy:
+                  inputTemplate: '<%- cck.input.many2one %>'
+                  presentationTemplate: '<%- cck.presentation.many2one %>'
+                  ref: 'users'
+                  keyField: '_id'
+                  fields: ['username']
+                readTime:
+                  inputTemplate: '<%- cck.input.dateTime %>'
+                  presentationTemplate: '<%- cck.presentation.text %>'
+          hidden: ['tabular']
       selectGroups: ['loggedIn']
       insertGroups: ['loggedIn']
       updateGroups: ['loggedIn']
@@ -146,8 +184,8 @@ do:
   - if: action == 'up'
     do:
       # upgrade
-      - '(schemas) -> [$.cck.createSchema]'
+      - |(schemas) -> [$.cck.createSchema]
 
     else:
       # downgrade
-      - '(schemas) -> [$.cck.removeSchema]'
+      - |(schemas) -> [$.cck.removeSchema]

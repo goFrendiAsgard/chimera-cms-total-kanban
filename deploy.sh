@@ -1,0 +1,2 @@
+# Assuming `total-kanban` and `chimera-cms` are located in the same directory
+npm pack && cd ../chimera-cms && npm uninstall total-kanban && npm install ../total-kanban/total-kanban-0.0.0.tgz && cd ../total-kanban && node ../chimera-cms/index.js

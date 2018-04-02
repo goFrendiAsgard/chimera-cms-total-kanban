@@ -4,7 +4,7 @@ vars:
   data:
 
     - name: Sample Card
-      description: |
+      note: |
         # Sample Card
         This is a card example.
 
@@ -27,8 +27,20 @@ do:
     do:
 
       # get boardId
-      - "('tk_boards', 'find', {'name': 'Sample Board'}) -> [$.helper.mongoExecute] -> boards"
-      - "(String(boards[0]._id)) --> boardId"
+      - |('tk_boards', 'find', {'name': 'Sample Board'}) -> [$.helper.mongoExecute] -> boards
+      - |(String(boards[0]._id)) --> boardId
+
+      # get labelTypeState
+      - |('tk_label_types', 'find', {'name': 'state'}) -> [$.helper.mongoExecute] -> labelTypes
+      - |(String(labelTypes[0]._id)) --> labelTypeState
+
+      # get labelTypePublication
+      - |('tk_label_types', 'find', {'name': 'publication'}) -> [$.helper.mongoExecute] -> labelTypes
+      - |(String(labelTypes[0]._id)) --> labelTypePublication
+
+      # get labelTypeDepartment
+      - |('tk_label_types', 'find', {'name': 'department'}) -> [$.helper.mongoExecute] -> labelTypes
+      - |(String(labelTypes[0]._id)) --> labelTypeDepartment
 
       # assign default board to the cards
       - ins: data, boardId
@@ -41,7 +53,12 @@ do:
             return data
           }
 
-      - "('tk_cards', 'insert', data) -> [$.helper.mongoExecute] -> output"
+      # modify data[0]
+      - |{type: labelTypeState, label:'Doing'} --> data[0].tags[0]
+      - |{type: labelTypePublication, label:'Draft'} --> data[0].tags[1]
+      - |{type: labelTypeDepartment, label:'IT'} --> data[0].tags[2]
+
+      - |('tk_cards', 'insert', data) -> [$.helper.mongoExecute] -> output
 
     else:
       - "('tk_cards', 'remove', {'default': 1}) -> [$.helper.mongoExecute] -> output"

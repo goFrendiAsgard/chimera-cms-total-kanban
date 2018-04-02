@@ -10,7 +10,7 @@ do:
 
   - if: action == 'up'
     do:
-      - "('tk_boards', 'insert', data) -> [$.helper.mongoExecute] -> output"
+      - |('tk_boards', 'insert', data) -> [$.helper.mongoExecute] -> output
 
     else:
-      - "('tk_boards', 'remove', {'default': 1}) -> [$.helper.mongoExecute] -> output"
+      - |('tk_boards', 'remove', {'default': 1}) -> [$.helper.mongoExecute] -> output

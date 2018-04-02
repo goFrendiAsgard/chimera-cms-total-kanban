@@ -5,7 +5,7 @@ vars:
 
     - name: state
       caption: Progress State
-      labels: ['To Do', 'Doing', 'Done', 'Idea']
+      labels: ['To-Do', 'Doing', 'Done', 'Idea']
       default: 1
 
     - name: publication
@@ -15,24 +15,24 @@ vars:
 
     - name: urgency
       caption: 'Urgency'
-      labels: ['Urgent', 'Not Urgent']
+      labels: ['Urgent', 'Not-Urgent']
       default: 1
     
     - name: importance
       caption: 'Importance'
-      labels: ['Important', 'Not Important']
+      labels: ['Important', 'Not-Important']
       default: 1
   
   additionalData:
 
     - name: room
       caption: Room
-      labels: ['Meeting Room', 'Cafetaria', 'Auditorium']
+      labels: ['Meeting-Room', 'Cafetaria', 'Auditorium']
       default: 1
 
     - name: department
       caption: Department
-      labels: ['Accounting', 'IT', 'Public Relation']
+      labels: ['Accounting', 'IT', 'Public-Relation']
       default: 1
 
 do:  
@@ -40,8 +40,8 @@ do:
   - if: action == 'up'
     do:
       # get boardId
-      - "('tk_boards', 'find', {'name': 'Sample Board'}) -> [$.helper.mongoExecute] -> boards"
-      - "(String(boards[0]._id)) --> boardId"
+      - |('tk_boards', 'find', {'name': 'Sample Board'}) -> [$.helper.mongoExecute] -> boards
+      - |(String(boards[0]._id)) --> boardId
 
       # add boardId to additionalData
       - ins: additionalData, boardId
@@ -55,9 +55,9 @@ do:
           }
 
       # merge additionalData into data
-      - "(data, additionalData) -> {$.merge} -> data"
+      - |(data, additionalData) -> {$.merge} -> data
 
-      - "('tk_label_types', 'insert', data) -> [$.helper.mongoExecute] -> output"
+      - |('tk_label_types', 'insert', data) -> [$.helper.mongoExecute] -> output
 
     else:
-      - "('tk_label_types', 'remove', {'default': 1}) -> [$.helper.mongoExecute] -> output"
+      - |('tk_label_types', 'remove', {'default': 1}) -> [$.helper.mongoExecute] -> output
