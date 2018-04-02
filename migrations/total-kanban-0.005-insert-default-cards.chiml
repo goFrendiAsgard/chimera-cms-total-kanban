@@ -14,11 +14,7 @@ vars:
         * List 1
         * List 2
         * List 3
-      publication: Draft
-      state: To Do
-      urgency: Not Urgent
-      importance: Important
-      department: IT
+      tags: []
       default: 1
 
 do:  
@@ -54,9 +50,17 @@ do:
           }
 
       # modify data[0]
-      - |{type: labelTypeState, label:'Doing'} --> data[0].tags[0]
-      - |{type: labelTypePublication, label:'Draft'} --> data[0].tags[1]
-      - |{type: labelTypeDepartment, label:'IT'} --> data[0].tags[2]
+      - |([]) --> tags
+      - |({type: labelTypeState, label:'Doing'}) --> tags[0]
+      - |({type: labelTypePublication, label:'Draft'}) --> tags[1]
+      - |({type: labelTypeDepartment, label:'IT'}) --> tags[2]
+      - ins: data, tags
+        out: data
+        do: |
+          (data, tags) => {
+            data[0].tags = tags
+            return data
+          }
 
       - |('tk_cards', 'insert', data) -> [$.helper.mongoExecute] -> output
 

@@ -81,6 +81,7 @@ vars:
               ref: 'tklabeltypes'
               keyField: '_id'
               fields: ['caption']
+              bootstrapColWidth: 6
             label: {}
           hidden: ['tabular']
         note:
