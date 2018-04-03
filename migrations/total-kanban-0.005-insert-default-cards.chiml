@@ -3,20 +3,62 @@ out: output
 vars:
   data:
 
-    - name: Sample Card
+    - _id: '000000000000000000000001'
+      name: Deploy the website
       note: |
-        # Sample Card
-        This is a card example.
-
-        # List
-        Here are some list:
-
-        * List 1
-        * List 2
-        * List 3
-      tags: []
+        # Deploy the website
+        Build a website that is accessible from anywhere
+      checklist:
+        - card: '000000000000000000000002'
+          weight: 0.3
+        - card: '000000000000000000000003'
+          weight: 0.4
+        - name: Prepare the server
+          weight: 0.1
+          completion: 0
+        - name: Testing
+          weight: 0.1
+          completion: 0
+        - name: Launching
+          weight: 0.1
+          completion: 0
       default: 1
-
+    - _id: '000000000000000000000002'
+      name: Buy VPS
+      note: |
+        # VPS Alternatives
+        There are many good alternative to consider:
+        * AWS
+        * Digital Ocean
+        * GCS
+      checklist:
+        - name: Ask Mr. Koko about technical detail
+          weight: 0.3
+          completion: 0
+        - name: Ask Mrs. Laila about the budget
+          weight: 0.3
+          completion: 0
+        - name: Buy the VPS
+          weight: 0.4
+          completion: 0
+      default: 1
+    - _id: '000000000000000000000003'
+      name: Code the website
+      note: |
+        # Coding
+        This time, try to use `Chimera-CMS`, it is super cool
+      checklist:
+        - name: Ask Mr. Go for Chimera-CMS training
+          weight: 0.2
+          completion: 0
+        - name: Do the training
+          weight: 0.3
+          completion: 0
+        - name: Coding !!!
+          weight: 0.5
+          completion: 0
+      default: 1
+        
 do:  
 
   - if: action == 'up'
@@ -52,13 +94,14 @@ do:
       # modify data[0]
       - |([]) --> tags
       - |({type: labelTypeState, label:'Doing'}) --> tags[0]
-      - |({type: labelTypePublication, label:'Draft'}) --> tags[1]
-      - |({type: labelTypeDepartment, label:'IT'}) --> tags[2]
+      - |({type: labelTypeDepartment, label:'IT'}) --> tags[1]
       - ins: data, tags
         out: data
         do: |
           (data, tags) => {
-            data[0].tags = tags
+            for (let i = 0; i < data.length; i++) {
+              data[i].tags = tags
+            }
             return data
           }
 

@@ -140,7 +140,7 @@ vars:
             completion: {}
             card: 
               inputTemplate: '<%- cck.input.many2one %>'
-              presentationTemplate: '<%- cck.input.many2one %>'
+              presentationTemplate: '<%- cck.presentation.many2one %>'
               ref: 'tkcards'
               keyField: '_id'
               fields: ['name']
