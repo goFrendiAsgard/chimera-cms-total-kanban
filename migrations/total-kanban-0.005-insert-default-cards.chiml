@@ -28,6 +28,7 @@ vars:
       note: |
         # VPS Alternatives
         There are many good alternative to consider:
+        
         * AWS
         * Digital Ocean
         * GCS

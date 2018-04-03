@@ -86,7 +86,7 @@ vars:
           hidden: ['tabular']
         note:
           inputTemplate: '<%- cck.input.codeText %>'
-          presentationTemplate: '<%- cck.presentation.text %>'
+          presentationTemplate: '<%- viewPath %>total-kanban/cck/presentations/markdown.ejs'
           editor: markdown
           hidden: ['tabular']
         scheduleFrom:
