@@ -175,6 +175,7 @@ vars:
                   inputTemplate: '<%- cck.input.dateTime %>'
                   presentationTemplate: '<%- cck.presentation.text %>'
           hidden: ['tabular']
+      showView: 'total-kanban/cck/card.show.ejs'
       selectGroups: ['loggedIn']
       insertGroups: ['loggedIn']
       updateGroups: ['loggedIn']
