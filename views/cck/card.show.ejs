@@ -44,7 +44,26 @@
 </textarea>
 
 <script>
-  let cardList
+  let cardList, boardList, labelTypeList
+
+  function getBoardList(userId, callbackSuccess, callbackError) {
+    $.ajax({
+      url: '/api/v1/tklabeltypes',
+      dataType: 'json',
+      success: callbackSuccess,
+      error: callbackError
+    })
+  }
+
+  function getLabelTypeList(boardList, callbackSuccess, callbackError) {
+    $.ajax({
+      url: '/api/v1/tklabeltypes',
+      dataType: 'json',
+      success: callbackSuccess,
+      error: callbackError
+    })
+  }
+
   $(document).ready(function() {
     cardList = JSON.parse($('#textarea-initial-card-list').html())
     console.log(cardList)
